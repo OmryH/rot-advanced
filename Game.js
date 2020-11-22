@@ -1,8 +1,10 @@
 const Game = {
   display: null,
   currentScreen: null,
+  width: 80,
+  height: 24,
   init: function () {
-    this.display = new ROT.Display({width: 80, height: 20});
+    this.display = new ROT.Display({width: this.width, height: this.height});
     let container = this.display.getContainer();
     document.body.appendChild(container);
 
@@ -11,6 +13,8 @@ const Game = {
       window.addEventListener(event, function (e) {
         if (game.currentScreen !== null) {
           game.currentScreen.handleInput(event, e);
+          game.display.clear();
+          game.currentScreen.render(game.display);
         }
       })
     };
@@ -24,6 +28,14 @@ const Game = {
 
   getDisplay: function () {
     return this.display;
+  },
+
+  getWidth: function() {
+    return this.width
+  },
+
+  getHeight: function() {
+    return this.height
   },
 
   switchScreen: function (toScreen) {

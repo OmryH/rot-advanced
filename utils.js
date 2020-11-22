@@ -20,6 +20,19 @@ const utils = {
       case "ESCAPE":
         keyCode = 27;
         break;
+      case "LEFT":
+        keyCode = 65;
+        break;
+      case "RIGHT":
+        keyCode = 68;
+        break;
+      case "UP":
+        keyCode = 87;
+        break;
+      case "DOWN":
+        keyCode = 83;
+        break;
+
       default:
         break;
 
