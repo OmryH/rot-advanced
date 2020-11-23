@@ -2,10 +2,11 @@
 // Glyph //
 ///////////////////////////////////
 
-let Glyph = function (chr, fgColor, bgColor) {
-  this.char = chr || " ";
-  this.foreground = fgColor || "white";
-  this.background = bgColor || "black";
+let Glyph = function (properties) {
+  properties = properties || {};
+  this.char = properties['chr'] || " ";
+  this.foreground = properties['fgColor'] || "white";
+  this.background = properties['bgColor'] || "black";
 };
 
 Glyph.prototype.getChar = function () {
@@ -24,14 +25,23 @@ Glyph.prototype.getForeground = function () {
 // Tile //
 ///////////////////////////////////
 
-let Tile = function (glyph) {
-  this.glyph = glyph;
+let Tile = function (properties) {
+  properties = properties || {};
+  Glyph.call(this, properties);
+  this.isWalkable = properties['isWalkable'] || false;
+  this.isDiggable = properties['isDiggable'] || false;
 };
 
-Tile.prototype.getGlyph = function () {
-  return this.glyph;
+Tile.extend(Glyph);
+
+Tile.prototype.isWalkable = function () {
+  return this.isWalkable;
 };
 
-Tile.nullTile = new Tile(new Glyph());
-Tile.floorTile = new Tile(new Glyph("."));
-Tile.wallTile = new Tile(new Glyph("#", "goldenrod"));
+Tile.prototype.isDiggable = function () {
+  return this.isDiggable;
+};
+
+Tile.nullTile = new Tile({});
+Tile.floorTile = new Tile({char: ".", isWalkable: true});
+Tile.wallTile = new Tile({char: "#", fgColor: "goldenrod", isDiggable: true});

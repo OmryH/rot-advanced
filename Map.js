@@ -19,3 +19,18 @@ Game.Map.prototype.getTile = function (x, y) {
     return this.tiles[x][y] || Tile.nullTile;
   }
 };
+
+Game.Map.prototype.dig = function (x, y) {
+  if (this.getTile(x, y).isDiggable()) {
+    this.tiles[x][y] = Tile.floorTile;
+  }
+};
+
+Game.Map.prototype.getRandomFloorPosition = function () {
+  let x, y;
+  do {
+    x = Math.floor(Math.random() * this.width);
+    y = Math.floor(Math.random() * this.height);
+  } while(this.getTile(x, y) !== Tile.floorTile);
+  return {x: x, y: y};
+};
